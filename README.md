@@ -165,5 +165,6 @@ O ambiente containerizado inclui:
 ---
 
 **Curso:** MCCC015-23 - Programação Funcional  
+**Professor:** Diogo Santana Martins
 **Tópico:** Recursividade e Otimização de Tail Call  
 **Ano:** 2025
