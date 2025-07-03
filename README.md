@@ -19,7 +19,10 @@ src/main/scala/
 ├── LoopConversion.scala         # Conversão de loop para recursão
 ├── TailCall.scala               # Exemplos de tail calls vs non-tail calls
 ├── RecursiveStackOverflow.scala # Demonstração de stack overflow
-└── RecursiveTailCall.scala      # Exemplos abrangentes de recursão
+├── RecursiveTailCall.scala      # Exemplos abrangentes de recursão
+├── FibonacciRecursive.scala     # Fibonacci naive (exponencial)
+├── FibonacciMemoized.scala      # Fibonacci com memoização (otimizado)
+└── Factorial.scala              # Factorial: 4 implementações comparadas
 ```
 
 ## 📝 Descrição dos Arquivos
@@ -60,6 +63,28 @@ Coleção abrangente de exemplos:
 - Exponenciação (regular vs tail-recursive)
 - Funções com múltiplos casos recursivos
 - Comparação de eficiência entre abordagens
+
+### 7. FibonacciRecursive.scala
+Implementação naive da sequência de Fibonacci:
+- Demonstra recursão com complexidade exponencial O(2^n)
+- Exemplo clássico de ineficiência em recursão
+- Mostra o problema de subproblemas sobrepostos
+- Comparação de performance para diferentes entradas
+
+### 8. FibonacciMemoized.scala
+Fibonacci otimizado com memoização:
+- Técnica de cache para evitar recálculos
+- Transforma O(2^n) em O(n) usando memoização
+- Demonstra funções de alta ordem e closures
+- Exemplo de otimização sem alterar estrutura recursiva
+
+### 9. Factorial.scala
+Comparação completa de implementações de factorial:
+- **Naive**: Recursão simples (não tail-recursive)
+- **Tail Recursive**: Versão otimizada com acumulador
+- **Imperative**: Loop tradicional com estado mutável
+- **Functional Conversion**: Conversão de loop para recursão
+- Análise de complexidade e trade-offs entre abordagens
 
 ## 🚀 Como Executar
 
@@ -114,11 +139,23 @@ Se preferir executar localmente, instale:
    # Demonstração de stack overflow
    sbt "runMain recursivestackoverflow.run"
    
-   # Conversão de loop
+   # Conversão de loop para recursão
    sbt "runMain runDeclarativeSum"
    
-   # Exemplos abrangentes
+   # Exemplos abrangentes de recursão
    sbt "runMain RecursiveTailCall.run"
+   
+   # Fibonacci naive (atenção: lento para números grandes)
+   sbt "runMain fibonacciNaive.runFibonacciNaive"
+   
+   # Fibonacci com memoização (rápido mesmo para números grandes)
+   sbt "runMain fibonacciMemoized.runFibonacciMemoized"
+   
+   # Factorial: comparação de 4 implementações
+   sbt "runMain run"
+   
+   # Factorial: apenas conversão funcional
+   sbt "runMain runFactorialFromImperative"
    ```
 
 3. **Executar todos os testes:**
@@ -136,8 +173,40 @@ Após estudar este projeto, você deve compreender:
 4. **Padrão de acumulador em funções recursivas**
 5. **Quando e por que ocorre stack overflow**
 6. **Como converter loops imperativos para recursão funcional**
+7. **Técnicas de memoização para otimizar recursão**
+8. **Análise de complexidade algorítmica (O(n) vs O(2^n))**
+9. **Funções de alta ordem e closures**
+10. **Trade-offs entre diferentes paradigmas de programação**
 
-## 🛠️ Ambiente de Desenvolvimento
+## � Conceitos Importantes
+
+### Recursão de Cauda (Tail Recursion)
+Uma função é tail-recursive quando a chamada recursiva é a **última operação** executada antes do retorno. Isso permite ao compilador otimizar a recursão em um loop, evitando o crescimento da pilha de chamadas.
+
+### Memoização
+Técnica de otimização que armazena resultados de computações caras em cache para evitar recálculos. Especialmente útil para funções recursivas com subproblemas sobrepostos, como Fibonacci.
+
+### Complexidade Algorítmica
+- **O(n)**: Complexidade linear - tempo cresce proporcionalmente ao input
+- **O(2^n)**: Complexidade exponencial - tempo dobra a cada incremento do input
+- **O(1)**: Complexidade constante - tempo independe do tamanho do input
+
+### Anotação @tailrec
+```scala
+@tailrec
+def exemplo(n: Int, acc: Int = 0): Int = {
+    if (n <= 0) acc
+    else exemplo(n - 1, acc + n)  // Última operação = tail call
+}
+```
+
+### Padrão de Acumulador
+Técnica comum em recursão de cauda onde mantemos o resultado parcial em um parâmetro adicional (acumulador), evitando operações após a chamada recursiva.
+
+### Funções de Alta Ordem
+Funções que recebem outras funções como parâmetros ou retornam funções. Exemplo: a função `memoize` que transforma qualquer função em sua versão memoizada.
+
+## �🛠️ Ambiente de Desenvolvimento
 
 ### Configuração Recomendada
 
