@@ -22,6 +22,9 @@ src/main/scala/
 ├── RecursiveTailCall.scala      # Exemplos abrangentes de recursão
 ├── FibonacciRecursive.scala     # Fibonacci naive (exponencial)
 ├── FibonacciMemoized.scala      # Fibonacci com memoização (otimizado)
+├── FibonacciTailRecursive.scala # Fibonacci tail-recursive (funcional)
+├── FibonacciIterative.scala     # Fibonacci iterativo (imperativo)
+├── FibonacciPerformance.scala   # Comparação de performance Fibonacci
 └── Factorial.scala              # Factorial: 4 implementações comparadas
 ```
 
@@ -78,7 +81,29 @@ Fibonacci otimizado com memoização:
 - Demonstra funções de alta ordem e closures
 - Exemplo de otimização sem alterar estrutura recursiva
 
-### 9. Factorial.scala
+### 9. FibonacciTailRecursive.scala
+Fibonacci implementado com recursão de cauda:
+- Demonstra conversão de loop iterativo para recursão funcional
+- Usa padrão de função auxiliar com acumuladores
+- Eficiência O(n) com segurança de pilha (stack-safe)
+- Comparação direta com abordagem iterativa
+
+### 10. FibonacciIterative.scala
+Fibonacci implementado com abordagem iterativa tradicional:
+- Loop while com variáveis mutáveis (estilo imperativo)
+- Eficiência máxima: O(n) tempo, O(1) espaço
+- Baseline para comparação com abordagens funcionais
+- Familiar para programadores de linguagens imperativas
+
+### 11. FibonacciPerformance.scala
+Análise empírica de performance entre todas as implementações:
+- Medição de tempo de execução real
+- Demonstração prática de complexidade algorítmica
+- Comparação entre O(2^n) vs O(n) na prática
+- Framework de timing usando funções de alta ordem
+- Insights educacionais sobre escolhas algorítmicas
+
+### 12. Factorial.scala
 Comparação completa de implementações de factorial:
 - **Naive**: Recursão simples (não tail-recursive)
 - **Tail Recursive**: Versão otimizada com acumulador
@@ -151,6 +176,15 @@ Se preferir executar localmente, instale:
    # Fibonacci com memoização (rápido mesmo para números grandes)
    sbt "runMain fibonacciMemoized.runFibonacciMemoized"
    
+   # Fibonacci tail-recursive (funcional e eficiente)
+   sbt "runMain talRecursiveFibonacci.runFibonacciTailRecursive"
+   
+   # Fibonacci iterativo (imperativo tradicional)
+   sbt "runMain iterativeFibonacci.runFibonacciIterative"
+   
+   # Comparação de performance entre todas as implementações Fibonacci
+   sbt "runMain fibonacciPerformance.runPerformanceComparison"
+   
    # Factorial: comparação de 4 implementações
    sbt "runMain run"
    
@@ -177,6 +211,10 @@ Após estudar este projeto, você deve compreender:
 8. **Análise de complexidade algorítmica (O(n) vs O(2^n))**
 9. **Funções de alta ordem e closures**
 10. **Trade-offs entre diferentes paradigmas de programação**
+11. **Análise empírica de performance algorítmica**
+12. **Medição de tempo de execução e profiling**
+13. **Comparação prática entre abordagens funcionais e imperativas**
+14. **Quando usar cada técnica de otimização**
 
 ## � Conceitos Importantes
 
@@ -205,6 +243,33 @@ Técnica comum em recursão de cauda onde mantemos o resultado parcial em um par
 
 ### Funções de Alta Ordem
 Funções que recebem outras funções como parâmetros ou retornam funções. Exemplo: a função `memoize` que transforma qualquer função em sua versão memoizada.
+
+### Análise de Performance
+O projeto inclui ferramentas para medir empiricamente o desempenho dos algoritmos:
+
+```scala
+def time[T](operation: => T): (T, Long) = {
+    val start = System.nanoTime()
+    val result = operation
+    val end = System.nanoTime()
+    (result, end - start)
+}
+```
+
+### Comparação Fibonacci
+O projeto demonstra quatro abordagens diferentes para Fibonacci:
+
+1. **Naive O(2^n)**: Torna-se impraticável por volta de F(40)
+2. **Memoized O(n)**: Transforma algoritmo ruim em bom
+3. **Tail Recursive O(n)**: Estilo funcional com performance imperativa
+4. **Iterative O(n)**: Abordagem tradicional, ainda muito eficiente
+
+### Insights Educacionais
+- Algoritmos exponenciais tornam-se impraticáveis rapidamente
+- Memoização pode transformar algoritmos ruins em bons
+- Recursão de cauda atinge performance de nível imperativo
+- Todos os métodos otimizados produzem resultados idênticos
+- A escolha depende da preferência de estilo, não da performance
 
 ## �🛠️ Ambiente de Desenvolvimento
 
